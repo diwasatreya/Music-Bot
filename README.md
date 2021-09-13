@@ -8,6 +8,7 @@ discord music bot with buttons. Play a best quality music.
 
 
 # Setup
+- Click **Star** in this project
 - Add TOKEN in `.env` file
 - Fill all the things in `config.json`
 - Add Youtube API Key in `config.js`
