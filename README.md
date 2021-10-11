@@ -1,5 +1,5 @@
 # Music-Bot
-discord music bot with buttons. Play a best quality music.
+Discord music bot with buttons. Play a best quality music.
 
 # Youtube Tutorial
 https://www.youtube.com/watch?v=vdmME5pX_ho
