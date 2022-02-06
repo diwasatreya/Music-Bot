@@ -12,15 +12,15 @@ module.exports = {
       try {
         if (!channel) return message.channel.send(' You Need To Join A Voice Channel! ');
         if (!channel.permissionsFor(bot.user).has(['CONNECT', 'SPEAK', 'VIEW_CHANNEL'])) {
-            return message.channel.send(" Missing Voice Permissions! ");
+            return message.channel.send(`${message.author.username}, I dont have permission to Join VC`);
         };
-        if (message.guild.me.voice.channel) return message.channel.send('❌  Bot is Already In The VC! ');
+        if (message.guild.me.voice.channel) return message.channel.send('I am already in VC use this command when I am not in VC');
       
         if (serverQueue || serverQueue.playing) {
-          return message.channel.send(" Cannot Join Another VC While Playing! ")
+          return message.channel.send("I am already playing song please us command later!")
         }
         await channel.join();
-        return message.channel.send(" ✅ Joined The Voice Channel! ")
+        return message.channel.send("I have succcessfully joined VC")
       } catch {
           serverQueue.connection.dispatcher.end();
           return message.channel.send(" Something Went Wrong, Please Try Again! ");
