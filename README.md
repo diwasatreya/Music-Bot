@@ -5,7 +5,7 @@
 
   <h2 align="center">Music Bot</h2>
 
- Discord music bot with buttons. Play a best quality music.
+ Discord music bot with buttons. Play the best quality music!
 
 </div>
 

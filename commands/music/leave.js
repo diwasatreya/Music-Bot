@@ -16,18 +16,17 @@ try {
         };
         if (!message.guild.me.voice.channel) return message.channel.send('❌  Bot is Not In A VC! ');
 
-        if (serverQueue || serverQueue.playing) {
+  if (serverQueue || serverQueue.playing) {
           serverQueue.connection.dispatcher.end();
           await channel.leave();
-          return message.channel.send("Left The Voice Channel! ");
         } else {
         await channel.leave();
-        return message.channel.send("Left The Voice Channel! ");
         }
+  return message.channel.send("Left The Voice Channel! ");
       } catch {
           serverQueue.connection.dispatcher.end();
           await channel.leave();
-          return message.channel.send(" Something Went Wrong, Please Try Again! ");
+          return message.channel.send("Something Went Wrong, Please Try Again!");
       }
     }
 }

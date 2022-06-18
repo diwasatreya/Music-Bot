@@ -14,7 +14,7 @@ module.exports = {
         if (message.guild.me.voice.channel !== message.member.voice.channel) {
             return message.channel.send(" You Have To Be In The Same Channel With The Bot! ");
         };
-        if (serverQueue && serverQueue.playing) {
+        if (serverQueue?.playing) {
             serverQueue.playing = false;
             serverQueue.connection.dispatcher.pause(true);
             return message.channel.send(' Paused  ⏸');
