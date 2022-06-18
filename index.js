@@ -16,8 +16,8 @@ const client = new Discord.Client({
 disbut(client)
 client.queue = new Map();
 const { MessageMenuOption, MessageMenu } = require("discord-buttons");
-let cooldown = new Set();
-let cdseconds = 3; 
+const cooldown = new Set();
+const cdseconds = 3; 
  const DisTube = require("distube")
 const queue2 = new Map();
 const queue3 = new Map();
@@ -43,12 +43,8 @@ client.on("message", async message => {
   let prefix;
     if (message.author.bot || message.channel.type === "dm") return;
         try {
-            let fetched = await db.fetch(`prefix_${message.guild.id}`);
-            if (fetched == null) {
-                prefix = bprefix
-            } else {
-                prefix = fetched
-            }
+            const fetched = await db.fetch(`prefix_${message.guild.id}`);
+            prefix = fetched ?? bprefix;
         } catch (e) {
             console.log(e)
     };
@@ -56,7 +52,7 @@ client.on("message", async message => {
    const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
   if (message.content.match(prefixMention)) {
 
-    let embed = new MessageEmbed()
+    const embed = new MessageEmbed()
         .setTitle(`${client.user.username} is Here!`)
         .setDescription(`Hey **${message.author.username},** I was made by <@${developerID}> 
 
@@ -77,7 +73,7 @@ client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return;
-let ad = ads.ad[Math.floor((Math.random() * ads.ad.length))];
+const ad = ads.ad[Math.floor((Math.random() * ads.ad.length))];
   if(cooldown.has(message.author.id)){
 
     return message.channel.send(`**${message.author.username}** please wait 3 seconds to use this command again! \n\n ${ad}`)
@@ -103,7 +99,7 @@ cooldown.delete(message.author.id)}, cdseconds * 1000)
   if (!command) command = client.commands.get(client.aliases.get(cmd));
 
   if (command.premium) {
-    let guild = await db.get(`premium_${message.guild.id}`);
+    const guild = await db.get(`premium_${message.guild.id}`);
 
 
     if (!guild) {
@@ -111,11 +107,11 @@ cooldown.delete(message.author.id)}, cdseconds * 1000)
     }
 
   }
-   let ops = {
-            queue: queue,
-            queue2: queue2,
-            queue3: queue3,
-            games: games
+   const ops = {
+            queue,
+            queue2,
+            queue3,
+            games
         }
 
 
@@ -153,11 +149,11 @@ message.channel.send(`${math.evaluate(`${message.content} + 1`)}`)
 // Do not change anything here
 require('http').createServer((req, res) => res.end(`
  |-----------------------------------------|
- |              Informations               |
+ |              Information                |
  |-----------------------------------------|
  |• Alive: 24/7                            |
  |-----------------------------------------|
- |• Author: Atreya#2401                   |
+ |• Author: Atreya#2401                    |
  |-----------------------------------------|
  |• Server: https://discord.gg/gU7XAxTpX5  |
  |-----------------------------------------|
@@ -165,7 +161,7 @@ require('http').createServer((req, res) => res.end(`
  |-----------------------------------------|
  |• License: Apache License 2.0            |
  |-----------------------------------------|
-`)).listen(3000) //Dont remove this 
+`)).listen(3000) //Don't remove this 
 
 client.on("ready", () => {
    client.user.setStatus("dnd"); // You can change it to online, dnd, idle

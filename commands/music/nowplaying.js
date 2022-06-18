@@ -17,13 +17,8 @@ module.exports = {
             };
             const serverQueue = ops.queue.get(message.guild.id);
             if (!serverQueue) return message.channel.send('❌ **Nothing playing in this server**');
-            let video = serverQueue.songs[0];
-            let description;
-            if (video.duration == 'Live Stream') {
-                description = 'Live Stream';
-            } else {
-                description = playbackBar(video);
-            }
+            const video = serverQueue.songs[0];
+            const description = video.duration == 'Live Stream' ? 'Live Stream' : playbackBar(video);
             const videoEmbed = new MessageEmbed()
                 .setThumbnail(video.thumbnail)
                 .setColor('GREEN')
@@ -51,13 +46,13 @@ module.exports = {
                 );
 
                 let totalDurationInMS = 0;
-                Object.keys(totalDurationObj).forEach(function (key) {
+                Object.keys(totalDurationObj).forEach((key) => {
                     if (key == 'hours') {
-                        totalDurationInMS = totalDurationInMS + totalDurationObj[key] * 3600000;
+                        totalDurationInMS += totalDurationObj[key] * 36e5;
                     } else if (key == 'minutes') {
-                        totalDurationInMS = totalDurationInMS + totalDurationObj[key] * 60000;
+                        totalDurationInMS += totalDurationObj[key] * 6e4;
                     } else if (key == 'seconds') {
-                        totalDurationInMS = totalDurationInMS + totalDurationObj[key] * 100;
+                        totalDurationInMS += totalDurationObj[key] * 100;
                     }
                 });
                 const playBackBarLocation = Math.round(
@@ -73,26 +68,24 @@ module.exports = {
                         playBack = '▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬:musical_note:';
                         break;
                     } else if (i == playBackBarLocation * 2) {
-                        playBack = playBack + ':musical_note:';
+                        playBack += ':musical_note:';
                     } else {
-                        playBack = playBack + '▬';
+                        playBack += '▬';
                     }
                 }
-                playBack = `${playBack}\n\n\`${passedTimeFormatted} / ${totalDurationFormatted}\``;
-                return playBack
+                return `${playBack}\n\n\`${passedTimeFormatted} / ${totalDurationFormatted}\``;
             }
 
             function formatDuration(durationObj) {
-                const duration = `${durationObj.hours ? (durationObj.hours + ':') : ''}${
+                return `${durationObj.hours ? (`${durationObj.hours}:`) : ''}${
                     durationObj.minutes ? durationObj.minutes : '00'
                     }:${
                     (durationObj.seconds < 10)
-                        ? ('0' + durationObj.seconds)
+                        ? (`0${durationObj.seconds}`)
                         : (durationObj.seconds
                             ? durationObj.seconds
                             : '00')
                     }`;
-                return duration;
             }
         } catch {
             message.channel.send("**Something Went Wrong!**")

@@ -12,26 +12,26 @@ module.exports = {
   description: "Information",
 
   run: async (client, message, args) => {
-    let helpEmbed = new MessageEmbed()
+    const helpEmbed = new MessageEmbed()
     .setTitle(`Invite ${bot}`)
-      .setDescription(`*Choose an option below to redirect*`)
+      .setDescription('*Choose an option below to redirect*')
       .setThumbnail(client.user.displayAvatarURL())
       .setFooter(`Requested by: ${message.author.tag}`)
       .setColor("#FFFFF0")
 
 
-      let button1 = new disbut.MessageButton()
+      const button1 = new disbut.MessageButton()
       .setStyle('url')
       .setLabel('Invite') 
       .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands`);
-      let button2 = new disbut.MessageButton()
+      const button2 = new disbut.MessageButton()
       .setStyle('url')
       .setLabel('Support Server') 
       .setURL(`${support}`);
 
 
       return message.channel.send(helpEmbed,{
-        button: [button1,button2],
+        button: [button1, button2],
       });
 
   },

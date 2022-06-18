@@ -43,7 +43,7 @@ module.exports = {
                 console.log(video)
             } catch (error) {
                 try {
-                    var videos = await youtube.searchVideos(searchString, 10);
+                    const videos = await youtube.searchVideos(searchString, 10);
                     let index = 0;
                     const sembed = new MessageEmbed()
                         .setColor("GREEN")
@@ -54,11 +54,11 @@ module.exports = {
                     \nPlease provide a value to select one of the search results ranging from 1-10.
                                     `)
                         .setTimestamp();
-                    message.channel.send(sembed).then(message2 => message2.delete({ timeout: 10000 }))
+                    message.channel.send(sembed).then(message2 => message2.delete({ timeout: 1e4 }))
                     try {
                         var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
                             max: 1,
-                            time: 10000,
+                            time: 1e4,
                             errors: ['time']
                         });
                     } catch (err) {
@@ -97,7 +97,7 @@ module.exports = {
                 ops.queue.set(message.guild.id, queueConstruct);
                 queueConstruct.songs.push(song);
                 try {
-                    var connection = await channel.join();
+                    const connection = await channel.join();
                     queueConstruct.connection = connection;
                     play(message.guild, queueConstruct.songs[0], message);
                 } catch (error) {
@@ -110,16 +110,14 @@ module.exports = {
                 serverQueue.songs.push(song);
                 console.log(serverQueue.songs);
                 if (playlist) return undefined;
-                else {
-                    const embed = new MessageEmbed()
-                        .setColor("GREEN")
-                        .setTitle("Added To Queue")
-                        .setThumbnail(song.thumbnail)
-                        .setTimestamp()
-                        .setDescription(`**${song.title}** has been added to queue!`)
-                        .setFooter(message.member.displayName, message.author.displayAvatarURL());
-                    message.channel.send(embed)
-                }
+                const embed = new MessageEmbed()
+                .setColor("GREEN")
+                .setTitle("Added To Queue")
+                .setThumbnail(song.thumbnail)
+                .setTimestamp()
+                .setDescription(`**${song.title}** has been added to queue!`)
+                .setFooter(message.member.displayName, message.author.displayAvatarURL());
+                message.channel.send(embed)
             }
             return undefined;
         }
