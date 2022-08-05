@@ -28,6 +28,6 @@ https://www.youtube.com/watch?v=vdmME5pX_ho
 **Your Bot is ready!**
 
 
-# Replit Users 
+# Replit Users : 
 
 [Click Here](https://repl.it/github/diwasatreya/Music-Bot) 
