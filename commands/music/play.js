@@ -35,58 +35,58 @@ module.exports = {
         if (!permissions.has('CONNECT')) return message.channel.send('Missing Permission, I dont have connect permission.');
         if (!permissions.has('SPEAK')) return message.channel.send('Missing Permission, I dont have speak permission.');
 
-        let button1 = new MessageButton()
+        const button1 = new MessageButton()
     .setLabel(`Pause`)
     .setID(`pause`)
     .setStyle("red");
 
-    let button2 = new MessageButton()
+    const button2 = new MessageButton()
     .setLabel(`Resume`)
     .setID(`resume`)
     .setStyle("green");
 
-    let button3 = new MessageButton()
+    const button3 = new MessageButton()
     .setLabel(`Skip`)
     .setID(`skip`)
     .setStyle("green");
 
-    let button4 = new MessageButton()
+    const button4 = new MessageButton()
     .setLabel(`Pause`)
     .setID(`dpause`)
     .setDisabled()
     .setStyle("grey");
 
-     let button5 = new MessageButton()
+     const button5 = new MessageButton()
     .setLabel(`Resume`)
     .setID(`dresume`)
     .setDisabled()
     .setStyle("grey");
 
-     let button6 = new MessageButton()
+     const button6 = new MessageButton()
     .setLabel(`Skip`)
     .setID(`dskip`)
     .setDisabled()
     .setStyle("grey");
 
-    let button7 = new MessageButton()
+    const button7 = new MessageButton()
     .setLabel(`Loop`)
     .setID(`loop`)
     .setStyle("blurple");
 
-    let button8 = new MessageButton()
+    const button8 = new MessageButton()
     .setLabel(`Loop`)
     .setID(`dloop`)
     .setDisabled()
     .setStyle("grey");
 
-let rowss = new MessageActionRow()
+const rowss = new MessageActionRow()
     .addComponents(button4, button5, button6, button8);
 
 
-    let row = new MessageActionRow()
+    const row = new MessageActionRow()
     .addComponents(button1, button3, button7);
 
-    let rows = new MessageActionRow()
+    const rows = new MessageActionRow()
     .addComponents(button2, button3);
 
         if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
@@ -103,7 +103,7 @@ let rowss = new MessageActionRow()
                 var video = await youtube.getVideo(url);
             } catch (error) {
                 try {
-                    var videos = await youtube.searchVideos(searchString, 1);
+                    const videos = await youtube.searchVideos(searchString, 1);
                     var video = await youtube.getVideoByID(videos[0].id);
                 } catch (err) {
                     console.error(err)
@@ -124,23 +124,21 @@ let rowss = new MessageActionRow()
                     time: songInfo.videoDetails.lengthSeconds
                 };
 
-                let npmin = Math.floor(song.time / 60);
-                let npsec = song.time - npmin * 60
-                let np = `${npmin}:${npsec}`.split(' ')
+                const npmin = Math.floor(song.time / 60);
+                const npsec = song.time - npmin * 60
+                const np = `${npmin}:${npsec}`.split(' ')
 
                 if (serverQueue) {
                     serverQueue.songs.push(song);
                     if (playlist) return undefined;
-                    else {
-                        const sembed = new MessageEmbed()
-                            .setColor("GREEN")
-                            .setTitle("Added To Queue", message.author.displayAvatarURL())
-                            .setThumbnail(song.thumbnail)
-                            .setTimestamp()
-                            .setDescription(`**Title:** [${song.title}](${song.url}) \n\n **Song Duration:** ${np} minutes \n\n **Status:** Pending`)
-                            .setFooter(`Added By: ${message.member.displayName}`);
-                        message.channel.send(sembed)
-                    }
+                    const sembed = new MessageEmbed()
+                    .setColor("GREEN")
+                    .setTitle("Added To Queue", message.author.displayAvatarURL())
+                    .setThumbnail(song.thumbnail)
+                    .setTimestamp()
+                    .setDescription(`**Title:** [${song.title}](${song.url}) \n\n **Song Duration:** ${np} minutes \n\n **Status:** Pending`)
+                    .setFooter(`Added By: ${message.member.displayName}`);
+                    message.channel.send(sembed)
                     return undefined;
                 }
 
@@ -177,9 +175,9 @@ let rowss = new MessageActionRow()
             
                 
   const serverQueue = ops.queue.get(message.guild.id);
-                let npmin = Math.floor(song.time / 60);
-                let npsec = song.time - npmin * 60
-                let np = `${npmin}:${npsec}`.split(' ')
+                const npmin = Math.floor(song.time / 60);
+                const npsec = song.time - npmin * 60
+                const np = `${npmin}:${npsec}`.split(' ')
 
                  
 
@@ -223,7 +221,7 @@ let rowss = new MessageActionRow()
 
     const filter = (button) => button.clicker.user.id !== bot.user.id
 
-    const collector = MESSAGE.createButtonCollector(filter, { time: song.time > 0 ? song.time * 1000 : 600000 });
+    const collector = MESSAGE.createButtonCollector(filter, { time: song.time > 0 ? song.time * 1e3 : 6e5 });
 
     collector.on('collect', async (b) => {
 const { channel } = message.member.voice;
@@ -258,7 +256,7 @@ const { channel } = message.member.voice;
             return await b.reply.send('You have to join my VC', true);
         }
   
-           if (serverQueue && serverQueue.playing) {
+           if (serverQueue?.playing) {
             serverQueue.playing = false;
             serverQueue.connection.dispatcher.pause(true);
             MESSAGE.edit(embed2, rows);
