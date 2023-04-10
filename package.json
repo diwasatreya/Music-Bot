@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "Thanks for using"
-  },
   "keywords": [],
   "author": "Atreya#2401",
   "dependencies": {
